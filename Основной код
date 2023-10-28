@@ -1,0 +1,23 @@
+def calculate_weights(n):
+    pairwise_matrix = [[0] * n for _ in range(n)]
+
+    for i in range(n):
+        for j in range(i + 1, n):
+            ratio = float(input(f"Введите отношение важности критерия {i+1} к критерию {j+1}: "))
+            pairwise_matrix[i][j] = ratio
+            pairwise_matrix[j][i] = 1 / ratio
+
+    sum_weights = [0] * n
+    for i in range(n):
+        sum_weights[i] = sum(pairwise_matrix[i])
+
+    normalized_weights = [sum_weights[i] / sum(sum_weights) for i in range(n)]
+
+    return normalized_weights
+
+if __name__ == "__main__":
+    n = int(input("Введите количество критериев: "))
+    weights = calculate_weights(n)
+
+    for i, weight in enumerate(weights):
+        print(f"Критерий {i+1}: {weight:.2f}")
