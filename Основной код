@@ -3,9 +3,17 @@ def calculate_weights(n):
 
     for i in range(n):
         for j in range(i + 1, n):
-            ratio = float(input(f"Введите отношение важности критерия {i+1} к критерию {j+1}: "))
-            pairwise_matrix[i][j] = ratio
-            pairwise_matrix[j][i] = 1 / ratio
+            while True:
+                try:
+                    ratio = float(input(f"Введите отношение важности критерия {i+1} к критерию {j+1} (от 1 до 9): "))
+                    if 1 <= ratio <= 9:  # Изменили диапазон на 1 до 9
+                        pairwise_matrix[i][j] = ratio
+                        pairwise_matrix[j][i] = 1 / ratio
+                        break
+                    else:
+                        print("Значение должно быть в диапазоне от 1 до 9.")
+                except ValueError:
+                    print("Пожалуйста, введите числовое значение.")
 
     sum_weights = [0] * n
     for i in range(n):
